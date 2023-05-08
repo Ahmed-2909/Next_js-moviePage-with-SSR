@@ -1,4 +1,13 @@
 import Image from "next/image";
+
+export async function getStaticProps(){
+    const data = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}`)
+    const res = await data.json();
+    return res.results.map((movie)=>({
+        movie : toString(movie.id),
+    }))   
+}
+
 export const MovieDetail = async ({ params }) => {
     const { id } = params;
     // console.log(params)
